@@ -6,7 +6,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Created by aamado on 05-05-2022.
@@ -25,7 +25,7 @@ class ScreenLockinPattern implements IScreenLockinPattern {
 
     ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-    final Integer result = recursiveCountPattern(new Vector<Integer>(), new Integer(firstPoint), length);
+    final Integer result = recursiveCountPattern(new ArrayList<Integer>(), new Integer(firstPoint), length);
 
     return executorService.submit( new Callable<Integer>() {
       public Integer call(){
@@ -33,7 +33,7 @@ class ScreenLockinPattern implements IScreenLockinPattern {
     }});
   };
 
-  private Integer recursiveCountPattern(Vector<Integer> visited, Integer visiting, int remainLength){
+  private Integer recursiveCountPattern(ArrayList<Integer> visited, Integer visiting, int remainLength){
     if (visited.contains(visiting)){
       return new Integer(0);
     }
@@ -44,16 +44,17 @@ class ScreenLockinPattern implements IScreenLockinPattern {
     Integer count = new Integer(0);
     visited.add(visiting);
     for (Integer adjacent: adjacentPoints(visiting, 3, visited))
-      count += recursiveCountPattern(visited, adjacent, remainLength - 1);
+      count += recursiveCountPattern(new ArrayList<Integer>(visited), adjacent, remainLength - 1);
     
+    System.out.println("Finished with " + visiting + " With: " + count);
     return count;
 
   }
 
-  private Vector<Integer> adjacentPoints(int point, int matrixSize, Vector<Integer> visited){
-    //TODO -> This is wrong. If one is already visited it gets the next one
-    Vector<Integer> adjacentPoints = new Vector<Integer>();
-    Vector<Getter> getters = new Vector<Getter>();
+  private ArrayList<Integer> adjacentPoints(int point, int matrixSize, ArrayList<Integer> visited){
+    ArrayList<Integer> adjacentPoints = new ArrayList<Integer>();
+    // TODO -> Create Object for this, static one, so that it doesn't need to create all this everytime
+    ArrayList<Getter> getters = new ArrayList<Getter>();
     getters.add( new GetRight());
     getters.add( new GetLeft());
     getters.add( new GetUp());
@@ -75,13 +76,13 @@ class ScreenLockinPattern implements IScreenLockinPattern {
   }
 
   private interface Getter {
-    public Integer getAdjacentPoint(int point, int matrixSize, Vector<Integer> visited);
+    public Integer getAdjacentPoint(int point, int matrixSize, ArrayList<Integer> visited);
   }
 
 
   // TODO -> improve, a lot of repeated code
   private class GetRight implements Getter{
-    public Integer getAdjacentPoint(int point, int matrixSize, Vector<Integer> visited){
+    public Integer getAdjacentPoint(int point, int matrixSize, ArrayList<Integer> visited){
       if (point >= matrixSize * matrixSize)
         return null;
       
@@ -92,7 +93,7 @@ class ScreenLockinPattern implements IScreenLockinPattern {
   }
 
   private class GetLeft implements Getter{
-    public Integer getAdjacentPoint(int point, int matrixSize, Vector<Integer> visited){
+    public Integer getAdjacentPoint(int point, int matrixSize, ArrayList<Integer> visited){
       if (point <= 1)
         return null;
       
@@ -103,7 +104,7 @@ class ScreenLockinPattern implements IScreenLockinPattern {
   }
 
   private class GetDown implements Getter{
-    public Integer getAdjacentPoint(int point, int matrixSize, Vector<Integer> visited){
+    public Integer getAdjacentPoint(int point, int matrixSize, ArrayList<Integer> visited){
       if (point >= matrixSize * matrixSize)
         return null;
       
@@ -115,7 +116,7 @@ class ScreenLockinPattern implements IScreenLockinPattern {
   }
 
   private class GetUp implements Getter{
-    public Integer getAdjacentPoint(int point, int matrixSize, Vector<Integer> visited){
+    public Integer getAdjacentPoint(int point, int matrixSize, ArrayList<Integer> visited){
       if (point <= 1 || point <= matrixSize)
         return null;
       
@@ -127,7 +128,7 @@ class ScreenLockinPattern implements IScreenLockinPattern {
   }
 
   private class GetUp_Left implements Getter{
-    public Integer getAdjacentPoint(int point, int matrixSize, Vector<Integer> visited){
+    public Integer getAdjacentPoint(int point, int matrixSize, ArrayList<Integer> visited){
       if (point <= 1 || point <= matrixSize)
         return null;
       
@@ -139,7 +140,7 @@ class ScreenLockinPattern implements IScreenLockinPattern {
   }
 
   private class GetUp_Right implements Getter{
-    public Integer getAdjacentPoint(int point, int matrixSize, Vector<Integer> visited){
+    public Integer getAdjacentPoint(int point, int matrixSize, ArrayList<Integer> visited){
       if (point <= 1 || point <= matrixSize || point == matrixSize)
         return null;
       
@@ -151,7 +152,7 @@ class ScreenLockinPattern implements IScreenLockinPattern {
   }
   
   private class GetDown_Left implements Getter{
-    public Integer getAdjacentPoint(int point, int matrixSize, Vector<Integer> visited){
+    public Integer getAdjacentPoint(int point, int matrixSize, ArrayList<Integer> visited){
       if (point >= matrixSize * matrixSize || point >= matrixSize * (matrixSize - 1) || point == matrixSize * matrixSize - (matrixSize - 1))
         return null;
       
@@ -163,7 +164,7 @@ class ScreenLockinPattern implements IScreenLockinPattern {
   }
 
   private class GetDown_Right implements Getter{
-    public Integer getAdjacentPoint(int point, int matrixSize, Vector<Integer> visited){
+    public Integer getAdjacentPoint(int point, int matrixSize, ArrayList<Integer> visited){
       if (point >= matrixSize * matrixSize || point >= matrixSize * (matrixSize - 1))
         return null;
       
