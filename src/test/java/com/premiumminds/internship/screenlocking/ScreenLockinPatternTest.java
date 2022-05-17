@@ -34,4 +34,13 @@ public class ScreenLockinPatternTest {
     Integer result = count.get(10, TimeUnit.SECONDS);
     assertEquals(result.intValue(), 5);
   }
+
+  // TODO -> Test that throws error
+
+  @Test
+  public void ScreenLockinPatternTestFirst1Length5Test() throws InterruptedException, ExecutionException, TimeoutException {
+    Future<Integer> count  = new ScreenLockinPattern().countPatternsFrom(1, 5);
+    Integer result = count.get(10, TimeUnit.SECONDS);
+    assertEquals(result.intValue(), 8,776); // Used "https://github.com/delight-im/AndroidPatternLock"
+  }
 }
