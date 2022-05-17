@@ -45,8 +45,7 @@ class ScreenLockinPattern implements IScreenLockinPattern {
     visited.add(visiting);
     for (Integer adjacent: adjacentPoints(visiting, 3, visited))
       count += recursiveCountPattern(new ArrayList<Integer>(visited), adjacent, remainLength - 1);
-    
-    System.out.println("Finished with " + visiting + " With: " + count);
+
     return count;
 
   }
