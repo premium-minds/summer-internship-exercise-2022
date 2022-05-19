@@ -1,10 +1,12 @@
 package com.premiumminds.internship.screenlocking;
 
+import com.premiumminds.internship.screenlocking.exceptions.ErrorMessage;
+import com.premiumminds.internship.screenlocking.exceptions.ScreenLockingException;
+
 import java.util.concurrent.Future;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 
 import java.util.ArrayList;
 
@@ -20,8 +22,11 @@ class ScreenLockinPattern implements IScreenLockinPattern {
   * @return number of patterns
   */
   public Future<Integer> countPatternsFrom(int firstPoint,int length) {
+    if (firstPoint < 1 && firstPoint > 9)
+      throw new ScreenLockingException(ErrorMessage.SCREEN_POINT_OUT_OF_RANGE);
     // TODO -> Check if firstPoint inside of matrix
     // TODO -> Check if length greater then 0 and less then 10
+    // throw new RuntimeException("Not Implemented Yet");
 
     ExecutorService executorService = Executors.newSingleThreadExecutor();
 
