@@ -1,5 +1,8 @@
 package com.premiumminds.internship.screenlocking;
 
+import com.premiumminds.internship.screenlocking.exceptions.ErrorMessage;
+import com.premiumminds.internship.screenlocking.exceptions.ScreenLockinException;
+
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
@@ -33,6 +36,17 @@ public class ScreenLockinPatternTest {
     Future<Integer> count  = new ScreenLockinPattern().countPatternsFrom(3, 2);
     Integer result = count.get(10, TimeUnit.SECONDS);
     assertEquals(result.intValue(), 5);
+  }
+
+  @Test(expected=ScreenLockinException.class)
+  public void ScreenLockinPatternTestPointOutOfRange() throws InterruptedException, ExecutionException, TimeoutException {
+    // TODO -> Can we do multiple numbers like in Spock?
+    try{
+      Future<Integer> count  = new ScreenLockinPattern().countPatternsFrom(0, 2);
+      Integer result = count.get(1, TimeUnit.SECONDS);
+    } catch (ScreenLockinException e){
+      assertEquals(e.getErrorMessage(), ErrorMessage.SCREEN_POINT_OUT_OF_RANGE);
+    }
   }
 
   // TODO -> Test that throws error

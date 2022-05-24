@@ -1,9 +1,9 @@
 package com.premiumminds.internship.screenlocking.exceptions;
 
-public class ScreenLockingException extends RuntimeException{
+public class ScreenLockinException extends RuntimeException{
     private final ErrorMessage errorMessage;
 
-    public ScreenLockingException(ErrorMessage errorMessage){
+    public ScreenLockinException(ErrorMessage errorMessage){
         super(errorMessage.label);
         this.errorMessage = errorMessage;
     }
