@@ -58,7 +58,6 @@ class ScreenLockinPattern implements IScreenLockinPattern {
 
   private ArrayList<Integer> adjacentPoints(int point, int matrixSize, ArrayList<Integer> visited){
     ArrayList<Integer> adjacentPoints = new ArrayList<Integer>();
-    // TODO -> Create Object for this, static one, so that it doesn't need to create all this everytime
     ArrayList<Getter> getters = new ArrayList<Getter>();
     getters.add( new GetRight());
     getters.add( new GetLeft());
