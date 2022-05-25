@@ -12,6 +12,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import org.junit.Test;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
@@ -30,6 +32,9 @@ public class ScreenLockinPatternTest {
   public ScreenLockinPatternTest() {
   };
 
+  @Rule
+  public ExpectedException expectedEx = ExpectedException.none();
+
 
   @Test
   public void ScreenLockinPatternTestFirst3Length2Test()  throws InterruptedException, ExecutionException, TimeoutException {
@@ -38,8 +43,10 @@ public class ScreenLockinPatternTest {
     assertEquals(result.intValue(), 5);
   }
 
-  @Test(expected=ScreenLockinException.class)
+  @Test
   public void ScreenLockinPatternTestPointOutOfRange() throws InterruptedException, ExecutionException, TimeoutException {
+    expectedEx.expect(ScreenLockinException.class);
+    expectedEx.expectMessage(ErrorMessage.SCREEN_POINT_OUT_OF_RANGE.label);
     // TODO -> Can we do multiple numbers like in Spock?
     Future<Integer> count  = new ScreenLockinPattern().countPatternsFrom(0, 2);
     Integer result = count.get(1, TimeUnit.SECONDS);
@@ -47,8 +54,10 @@ public class ScreenLockinPatternTest {
     // Check Exception Message
   }
 
-  @Test(expected=ScreenLockinException.class)
+  @Test
   public void ScreenLockinPatternTestInvalidLength() throws InterruptedException, ExecutionException, TimeoutException {
+    expectedEx.expect(ScreenLockinException.class);
+    expectedEx.expectMessage(ErrorMessage.INVALID_PATTERN_LENGTH.label);
     // TODO -> Can we do multiple numbers like in Spock?
     Future<Integer> count  = new ScreenLockinPattern().countPatternsFrom(1, 0);
     Integer result = count.get(1, TimeUnit.SECONDS);
