@@ -41,15 +41,20 @@ public class ScreenLockinPatternTest {
   @Test(expected=ScreenLockinException.class)
   public void ScreenLockinPatternTestPointOutOfRange() throws InterruptedException, ExecutionException, TimeoutException {
     // TODO -> Can we do multiple numbers like in Spock?
-    try{
-      Future<Integer> count  = new ScreenLockinPattern().countPatternsFrom(0, 2);
-      Integer result = count.get(1, TimeUnit.SECONDS);
-    } catch (ScreenLockinException e){
-      assertEquals(e.getErrorMessage(), ErrorMessage.SCREEN_POINT_OUT_OF_RANGE);
-    }
+    Future<Integer> count  = new ScreenLockinPattern().countPatternsFrom(0, 2);
+    Integer result = count.get(1, TimeUnit.SECONDS);
+
+    // Check Exception Message
   }
 
-  // TODO -> Test that throws error
+  @Test(expected=ScreenLockinException.class)
+  public void ScreenLockinPatternTestInvalidLength() throws InterruptedException, ExecutionException, TimeoutException {
+    // TODO -> Can we do multiple numbers like in Spock?
+    Future<Integer> count  = new ScreenLockinPattern().countPatternsFrom(1, 0);
+    Integer result = count.get(1, TimeUnit.SECONDS);
+
+    // Check Exception Message
+  }
 
   @Test
   public void ScreenLockinPatternTestFirst1Length5Test() throws InterruptedException, ExecutionException, TimeoutException {

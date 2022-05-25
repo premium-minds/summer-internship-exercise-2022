@@ -25,9 +25,9 @@ class ScreenLockinPattern implements IScreenLockinPattern {
     if (firstPoint < 1 || firstPoint > 9){
       throw new ScreenLockinException(ErrorMessage.SCREEN_POINT_OUT_OF_RANGE);
     }
-    // TODO -> Check if firstPoint inside of matrix
-    // TODO -> Check if length greater then 0 and less then 10
-    // throw new RuntimeException("Not Implemented Yet");
+    if (length < 1 || length > 9){
+      throw new ScreenLockinException(ErrorMessage.INVALID_PATTERN_LENGTH);
+    }
 
     ExecutorService executorService = Executors.newSingleThreadExecutor();
 
