@@ -13,7 +13,7 @@ public class ComputeAdditionalPaths {
         }else if(number==3){
             return addNeighbors(2,5,6,4,8); //3
         }else if(number==4){
-            return addNeighbors(1,2,3,5,9,7); //4
+            return addNeighbors(1,2,3,5,9,7,8); //4
         }else if(number==5){
             return addNeighbors(1,2,3,4,6,7,8,9); //5
         }else if(number==6){
@@ -53,12 +53,16 @@ public class ComputeAdditionalPaths {
                     auxNodes.add(8);
                 } break;
             case 3:
+                if(inPath[2]){
+                    auxNodes.add(1);
+                }
                 if (inPath[5]) {
                     auxNodes.add(7);
                 }
                 if (inPath[6]) {
                     auxNodes.add(9);
-                } break;
+                }
+                break;
             case 4:
                 if (inPath[5]) {
                     auxNodes.add(6);
