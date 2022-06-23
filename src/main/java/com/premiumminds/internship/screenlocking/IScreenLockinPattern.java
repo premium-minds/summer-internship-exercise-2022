@@ -12,5 +12,5 @@ interface IScreenLockinPattern {
     * @param length the number of points used in pattern
     * @return number of patterns
     */
-  public Future<Integer> countPatternsFrom(int firstPoint,int length);
+  public Future<Integer> countPatternsFrom(int firstPoint, int length);
 }
