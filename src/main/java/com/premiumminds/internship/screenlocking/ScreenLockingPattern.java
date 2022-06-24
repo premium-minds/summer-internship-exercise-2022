@@ -8,10 +8,11 @@ import java.util.concurrent.*;
  */
 class ScreenLockingPattern implements IScreenLockinPattern {
     private final ComputeAdditionalPaths computeAdditionalPaths;
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+
     public ScreenLockingPattern(){
         computeAdditionalPaths = new ComputeAdditionalPaths();
     }
-    private ExecutorService executor = Executors.newSingleThreadExecutor();
 
     /**
   * Method to count patterns from firstPoint with the length
@@ -23,14 +24,15 @@ class ScreenLockingPattern implements IScreenLockinPattern {
      return executor.submit(() -> calculatePaths(firstPoint,length).size());
  }
 
-    private List<Integer> getNeighbors(boolean [] inPath, int number) throws Exception {
-      List<Integer> neighbors = computeAdditionalPaths.normalNeighbors(number);
-      List<Integer> additionalNeighbors = computeAdditionalPaths.additionalPaths(inPath,number);
-      neighbors.addAll(additionalNeighbors);
-      return neighbors;
+  private void addToStack(Stack<Integer> unprocessedNodes,boolean[] inPath,List<Integer> neighbors){
+      for (int aux:neighbors) {
+          if(!inPath[aux]){
+              unprocessedNodes.push(aux);
+          }
+      }
   }
   //[1, 2, 9, 5, 4, 7, 3]
-  public Set<String> calculatePaths(int startIndex, int length) throws Exception {
+  public Set<String> calculatePaths(int startIndex, int length){
       if(startIndex>9 || startIndex < 0|| length>9 || length < 1){
           return new HashSet<>();
       }
@@ -44,27 +46,23 @@ class ScreenLockingPattern implements IScreenLockinPattern {
           if(inPath[current]){
             path.remove(current);
             inPath[current]=false;
-          }else if(path.size() < length ){
-              if(path.add(current)){
-                  inPath[current]=true;
-                  unprocessedNodes.push(current);
-                  if(path.size()<length){
-                      List<Integer> neighbors = getNeighbors(inPath,current);
-                      for (int aux:neighbors) {
-                          if(!inPath[aux]){
-                              unprocessedNodes.push(aux);
-                          }
-                      }
-                  }else{
-                      result.add(path.toString());
-                  }
+          }else if(path.size() < length && path.add(current)){
+              inPath[current]=true;
+              unprocessedNodes.push(current);
+              if(path.size()<length){
+                  List<Integer> neighbors = computeAdditionalPaths.normalNeighbors(current);
+                  List<Integer> extendedNeighbors=computeAdditionalPaths.additionalPaths(inPath,current);
+                  addToStack(unprocessedNodes,inPath,neighbors);
+                  addToStack(unprocessedNodes,inPath,extendedNeighbors);
+              }else{
+                  result.add(path.toString());
               }
           }
       }
       return result;
   }
 
-  public static void main(String [] args) throws Exception {
+  public static void main(String [] args) {
       ScreenLockingPattern screenLockingPattern = new ScreenLockingPattern();
       long start = System.nanoTime();
       Set<String> result = screenLockingPattern.calculatePaths(3,7);

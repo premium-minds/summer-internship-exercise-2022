@@ -4,8 +4,31 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ComputeAdditionalPaths {
-    public ComputeAdditionalPaths(){}
-    public List<Integer> normalNeighbors(int number) throws Exception {
+    public List<Integer> [] matrix;
+    public List<Integer> [] getMatrix(){
+        return matrix;
+    }
+
+    public ComputeAdditionalPaths(){
+        matrix=new List[10];
+        intiMatrix();
+    }
+    private void intiMatrix(){
+        matrix[1]=addNeighbors(2,4,5,6,8);
+        matrix[2]=addNeighbors(1,3,4,5,6,7,9);
+        matrix[3]=addNeighbors(2,5,6,4,8);
+        matrix[4]=addNeighbors(1,2,3,5,9,7,8);
+        matrix[5]=addNeighbors(1,2,3,4,6,7,8,9);
+        matrix[6]=addNeighbors(1,2,3,5,7,8,9);
+        matrix[7]=addNeighbors(4,2,5,6,8);
+        matrix[8]=addNeighbors(7,4,1,5,3,6,9);
+        matrix[9]= addNeighbors(8,4,5,2,6);
+    }
+    private void initMatrixExtendedNeighbors(){
+
+    }
+    public List<Integer> normalNeighbors(int number){
+        /**
         if(number==1){
             return addNeighbors(2,4,5,6,8); //1
         }else if(number==2){
@@ -26,7 +49,8 @@ public class ComputeAdditionalPaths {
             return addNeighbors(8,4,5,2,6); //9
         }else {
             throw new Exception("UNKNOWN NUMBER");
-        }
+        }**/
+        return matrix[number];
     }
     private List<Integer> addNeighbors(int ...args){
         List<Integer> list = new LinkedList<>();
