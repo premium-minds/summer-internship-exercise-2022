@@ -276,6 +276,11 @@ public class ScreenLockinPatternTest {
     List<Integer> [] matrixWithFriendshipExtension = new List[10];
     ComputeAdditionalPaths computeAdditionalPaths = new ComputeAdditionalPaths();
     ScreenLockingPattern screenLockingPattern = new ScreenLockingPattern();
+    assertEquals(0,screenLockingPattern.calculatePaths(3,0).size());
+    assertEquals(0,screenLockingPattern.calculatePaths(4,10).size());
+    assertEquals(0,screenLockingPattern.calculatePaths(10,6).size());
+    assertEquals(0,screenLockingPattern.calculatePaths(0,7).size());
+
     boolean [] inPath = new boolean[10];
     allTrue(inPath);
     for (int i = 1; i < matrix.length; i++) {

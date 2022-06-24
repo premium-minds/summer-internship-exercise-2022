@@ -5,9 +5,6 @@ import java.util.List;
 
 public class ComputeAdditionalPaths {
     public List<Integer> [] matrix;
-    public List<Integer> [] getMatrix(){
-        return matrix;
-    }
 
     public ComputeAdditionalPaths(){
         matrix=new List[10];
