@@ -5,10 +5,13 @@ import java.util.List;
 
 public class ComputeAdditionalPaths {
     public List<Integer> [] matrix;
+    public List<FromTo> [] moreNeighbors;
 
     public ComputeAdditionalPaths(){
         matrix=new List[10];
+        moreNeighbors = new List[10];
         intiMatrix();
+        initAdditionalPaths();
     }
     private void intiMatrix(){
         matrix[1]=addNeighbors(2,4,5,6,8);
@@ -25,6 +28,7 @@ public class ComputeAdditionalPaths {
     public List<Integer> normalNeighbors(int number){
         return matrix[number];
     }
+    public List<FromTo> moreNeighbors(int number){ return moreNeighbors[number];}
     private List<Integer> addNeighbors(int ...args){
         List<Integer> list = new LinkedList<>();
         for (Integer i:args) {
@@ -32,71 +36,26 @@ public class ComputeAdditionalPaths {
         }
         return list;
     }
-    public List<Integer> additionalPaths(boolean [] inPath, int number) {
-        List<Integer> auxNodes = new LinkedList<>();
-        switch (number) {
-            case 1:
-                if (inPath[2]) {
-                    auxNodes.add(3);
-                }
-                if (inPath[4]) {
-                    auxNodes.add(7);
-                }
-                if (inPath[5]) {
-                    auxNodes.add(9);
-                } break;
-            case 2:
-                if (inPath[5]) {
-                    auxNodes.add(8);
-                } break;
-            case 3:
-                if(inPath[2]){
-                    auxNodes.add(1);
-                }
-                if (inPath[5]) {
-                    auxNodes.add(7);
-                }
-                if (inPath[6]) {
-                    auxNodes.add(9);
-                }
-                break;
-            case 4:
-                if (inPath[5]) {
-                    auxNodes.add(6);
-                } break;
-            case 5: break;
-            case 6:
-                if (inPath[5]) {
-                    auxNodes.add(4);
-                } break;
-            case 7:
-                if (inPath[5]) {
-                    auxNodes.add(3);
-                }
-                if (inPath[4]) {
-                    auxNodes.add(1);
-                }
-                if (inPath[8]) {
-                    auxNodes.add(9);
-                } break;
-            case 8:
-                if (inPath[5]) {
-                    auxNodes.add(2);
-                } break;
-            case 9:
-                if (inPath[5]) {
-                    auxNodes.add(1);
-                }
-                if (inPath[6]) {
-                    auxNodes.add(3);
-                }
-                if (inPath[8]) {
-                    auxNodes.add(7);
-                }
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + number);
+    private List<FromTo> addMoreNeighbors(FromTo ...args){
+        List<FromTo> list = new LinkedList<>();
+        for (FromTo i:args) {
+            list.add(i);
         }
-        return auxNodes;
+        return list;
+    }
+    public record FromTo(int x, int y) {}
+    public FromTo toFromTo(int x, int y){
+        return new FromTo(x,y);
+    }
+    private void initAdditionalPaths(){
+        moreNeighbors[1]=addMoreNeighbors(toFromTo(2,3),toFromTo(4,7),toFromTo(5,9));
+        moreNeighbors[2]=addMoreNeighbors(toFromTo(5,8));
+        moreNeighbors[3]=addMoreNeighbors(toFromTo(2,1),toFromTo(5,7),toFromTo(6,9));
+        moreNeighbors[4]=addMoreNeighbors(toFromTo(5,6));
+        moreNeighbors[5]=addMoreNeighbors();
+        moreNeighbors[6]=addMoreNeighbors(toFromTo(5,4));
+        moreNeighbors[7]=addMoreNeighbors(toFromTo(5,3),toFromTo(4,1),toFromTo(8,9));
+        moreNeighbors[8]=addMoreNeighbors(toFromTo(5,2));
+        moreNeighbors[9]=addMoreNeighbors(toFromTo(5,1),toFromTo(6,3),toFromTo(8,7));
     }
 }

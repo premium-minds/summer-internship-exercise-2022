@@ -20,10 +20,13 @@ class ScreenLockingPattern implements IScreenLockinPattern {
         ScreenLockingPattern screenLockingPattern = new ScreenLockingPattern();
         long start = System.nanoTime();
         Set<String> result = screenLockingPattern.calculatePaths(1, 7);
-        for (String r:result
-             ) {
-            System.out.println(r);
-        }
+
+        /**
+         *         for (String r:result
+         *              ) {
+         *             System.out.println(r);
+         *         }
+         */
         System.out.println("TOOK " + (System.nanoTime() - start));
         System.out.println("GENERATED " + result.size());
     }
@@ -46,6 +49,13 @@ class ScreenLockingPattern implements IScreenLockinPattern {
             }
         }
     }
+    private void addToStack2(Stack<Integer> unprocessedNodes, boolean[] inPath, List<ComputeAdditionalPaths.FromTo> neighbors) {
+        for (ComputeAdditionalPaths.FromTo aux : neighbors) {
+            if ((inPath[aux.x()]) && !inPath[aux.y()]) {
+                unprocessedNodes.push(aux.y());
+            }
+        }
+    }
 
     //[1, 2, 9, 5, 4, 7, 3]
     /**
@@ -59,6 +69,7 @@ class ScreenLockingPattern implements IScreenLockinPattern {
         if (startIndex > 9 || startIndex < 1 || length > 9 || length < 1) {
             return new HashSet<>();
         }
+        //int countPatter = 0;
         boolean[] inPath = new boolean[10];
         Set<Integer> path = new LinkedHashSet<>();
         Set<String> result = new HashSet<>();
@@ -74,14 +85,16 @@ class ScreenLockingPattern implements IScreenLockinPattern {
                 unprocessedNodes.push(current);
                 if (path.size() < length) {
                     List<Integer> neighbors = computeAdditionalPaths.normalNeighbors(current);
-                    List<Integer> extendedNeighbors = computeAdditionalPaths.additionalPaths(inPath, current);
+                    List<ComputeAdditionalPaths.FromTo> moreNeighbors = computeAdditionalPaths.moreNeighbors(current);
                     addToStack(unprocessedNodes, inPath, neighbors);
-                    addToStack(unprocessedNodes, inPath, extendedNeighbors);
+                    addToStack2(unprocessedNodes, inPath, moreNeighbors);
                 } else {
                     result.add(path.toString());
+                    //countPatter++;
                 }
             }
         }
+        //assert countPatter==result.size();
         return result;
     }
 }

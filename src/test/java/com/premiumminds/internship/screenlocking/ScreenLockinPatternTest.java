@@ -31,6 +31,7 @@ public class ScreenLockinPatternTest {
 
   @Test
   public void testOneNeighbors() {
+    int number = 1;
     ComputeAdditionalPaths computeAdditionalPaths = new ComputeAdditionalPaths();
     List<Integer> neighborsOfOne = computeAdditionalPaths.normalNeighbors(1);
     Assert.assertTrue(neighborsOfOne.contains(2));
@@ -40,24 +41,19 @@ public class ScreenLockinPatternTest {
     Assert.assertTrue(neighborsOfOne.contains(8));
     assertEquals(5,neighborsOfOne.size());
 
-    boolean [] inPath = new boolean[10];
-    List<Integer> moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,1);
-    assertEquals(0,moreNeighbors.size());
-    inPath[2]=inPath[5]=inPath[4]=true;
-    moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,1);
-    assertTrue(moreNeighbors.contains(3)&&moreNeighbors.contains(7)&&moreNeighbors.contains(9));
+    List<ComputeAdditionalPaths.FromTo> moreNeighbors = computeAdditionalPaths.moreNeighbors(number);
     assertEquals(3,moreNeighbors.size());
 
-    allTrue(inPath);
-    moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,1);
-    assertTrue(moreNeighbors.contains(3)&&moreNeighbors.contains(7)&&moreNeighbors.contains(9));
-    assertEquals(3,moreNeighbors.size());
+    assertTrue(moreNeighbors.contains(computeAdditionalPaths.toFromTo(2,3)));
+    assertTrue(moreNeighbors.contains(computeAdditionalPaths.toFromTo(4,7)));
+    assertTrue(moreNeighbors.contains(computeAdditionalPaths.toFromTo(5,9)));
   }
 
   @Test
   public void testTwoNeighbors() throws Exception {
+    int number = 2;
     ComputeAdditionalPaths computeAdditionalPaths = new ComputeAdditionalPaths();
-    List<Integer> neighborsOfOne = computeAdditionalPaths.normalNeighbors(2);
+    List<Integer> neighborsOfOne = computeAdditionalPaths.normalNeighbors(number);
     Assert.assertTrue(neighborsOfOne.contains(1));
     Assert.assertTrue(neighborsOfOne.contains(3));
     Assert.assertTrue(neighborsOfOne.contains(4));
@@ -67,23 +63,16 @@ public class ScreenLockinPatternTest {
     Assert.assertTrue(neighborsOfOne.contains(9));
     assertEquals(7,neighborsOfOne.size());
 
-    boolean [] inPath = new boolean[10];
-    List<Integer> moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,2);
-    assertEquals(0,moreNeighbors.size());
-
-    inPath[5]=true;
-    moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,2);
-    assertTrue(moreNeighbors.contains(8));
+    List<ComputeAdditionalPaths.FromTo> moreNeighbors = computeAdditionalPaths.moreNeighbors(number);
     assertEquals(1,moreNeighbors.size());
 
-    allTrue(inPath);
-    moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,2);
-    assertTrue(moreNeighbors.contains(8));
-    assertEquals(1,moreNeighbors.size());
+    assertTrue(moreNeighbors.contains(computeAdditionalPaths.toFromTo(5,8)));
+
   }
 
   @Test
   public void testThreeNeighbors() {
+    int number = 3;
     ComputeAdditionalPaths computeAdditionalPaths = new ComputeAdditionalPaths();
     List<Integer> neighborsOfOne = computeAdditionalPaths.normalNeighbors(3);
     Assert.assertTrue(neighborsOfOne.contains(2));
@@ -93,18 +82,12 @@ public class ScreenLockinPatternTest {
     Assert.assertTrue(neighborsOfOne.contains(8));
     assertEquals(5,neighborsOfOne.size());
 
-    boolean [] inPath = new boolean[10];
-    List<Integer> moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,3);
-    assertEquals(0,moreNeighbors.size());
-    inPath[2]=inPath[5]=inPath[6]=true;
-    moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,3);
-    assertTrue(moreNeighbors.contains(1)&&moreNeighbors.contains(7)&&moreNeighbors.contains(9));
+    List<ComputeAdditionalPaths.FromTo> moreNeighbors = computeAdditionalPaths.moreNeighbors(number);
     assertEquals(3,moreNeighbors.size());
 
-    allTrue(inPath);
-    moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,3);
-    assertTrue(moreNeighbors.contains(1)&&moreNeighbors.contains(7)&&moreNeighbors.contains(9));
-    assertEquals(3,moreNeighbors.size());
+    assertTrue(moreNeighbors.contains(computeAdditionalPaths.toFromTo(2,1)));
+    assertTrue(moreNeighbors.contains(computeAdditionalPaths.toFromTo(5,7)));
+    assertTrue(moreNeighbors.contains(computeAdditionalPaths.toFromTo(6,9)));
   }
 
   private void allTrue(boolean [] inPath){
@@ -121,8 +104,9 @@ public class ScreenLockinPatternTest {
   }
   @Test
   public void testFourNeighbors() {
+    int number = 4;
     ComputeAdditionalPaths computeAdditionalPaths = new ComputeAdditionalPaths();
-    List<Integer> neighborsOfOne = computeAdditionalPaths.normalNeighbors(4);
+    List<Integer> neighborsOfOne = computeAdditionalPaths.normalNeighbors(number);
     Assert.assertTrue(neighborsOfOne.contains(1));
     Assert.assertTrue(neighborsOfOne.contains(2));
     Assert.assertTrue(neighborsOfOne.contains(3));
@@ -132,26 +116,17 @@ public class ScreenLockinPatternTest {
     Assert.assertTrue(neighborsOfOne.contains(9));
     assertEquals(7,neighborsOfOne.size());
 
-    boolean [] inPath = new boolean[10];
-    List<Integer> moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,4);
-    assertEquals(0,moreNeighbors.size());
-
-    inPath[5]=true;
-    moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,4);
-    assertTrue(moreNeighbors.contains(6));
+    List<ComputeAdditionalPaths.FromTo> moreNeighbors = computeAdditionalPaths.moreNeighbors(number);
     assertEquals(1,moreNeighbors.size());
 
-    allTrue(inPath);
-    moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,4);
-    assertTrue(moreNeighbors.contains(6));
-    assertEquals(1,moreNeighbors.size());
-
+    assertTrue(moreNeighbors.contains(computeAdditionalPaths.toFromTo(5,6)));
   }
 
   @Test
   public void testFiveNeighbors(){
+    int number = 5;
     ComputeAdditionalPaths computeAdditionalPaths = new ComputeAdditionalPaths();
-    List<Integer> neighborsOfOne = computeAdditionalPaths.normalNeighbors(5);
+    List<Integer> neighborsOfOne = computeAdditionalPaths.normalNeighbors(number);
     Assert.assertTrue(neighborsOfOne.contains(1));
     Assert.assertTrue(neighborsOfOne.contains(2));
     Assert.assertTrue(neighborsOfOne.contains(3));
@@ -162,12 +137,7 @@ public class ScreenLockinPatternTest {
     Assert.assertTrue(neighborsOfOne.contains(9));
     assertEquals(8,neighborsOfOne.size());
 
-    boolean [] inPath = new boolean[10];
-    List<Integer> moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,5);
-    assertEquals(0,moreNeighbors.size());
-
-    allTrue(inPath);
-    moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,5);
+    List<ComputeAdditionalPaths.FromTo> moreNeighbors = computeAdditionalPaths.moreNeighbors(number);
     assertEquals(0,moreNeighbors.size());
   }
   @Test
@@ -184,18 +154,10 @@ public class ScreenLockinPatternTest {
     Assert.assertTrue(neighborsOfOne.contains(9));
     assertEquals(7,neighborsOfOne.size());
 
-    boolean [] inPath = new boolean[10];
-    List<Integer> moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,number);
-    assertEquals(0,moreNeighbors.size());
-    inPath[5]=true;
-    moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,number);
-    assertTrue(moreNeighbors.contains(4));
+    List<ComputeAdditionalPaths.FromTo> moreNeighbors = computeAdditionalPaths.moreNeighbors(number);
     assertEquals(1,moreNeighbors.size());
 
-    allTrue(inPath);
-    moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,number);
-    assertTrue(moreNeighbors.contains(4));
-    assertEquals(1,moreNeighbors.size());
+    assertTrue(moreNeighbors.contains(computeAdditionalPaths.toFromTo(5,4)));
   }
   @Test
   public void testSevenNeighbors(){
@@ -209,18 +171,12 @@ public class ScreenLockinPatternTest {
     Assert.assertTrue(neighborsOfOne.contains(8));
     assertEquals(5,neighborsOfOne.size());
 
-    boolean [] inPath = new boolean[10];
-    List<Integer> moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,number);
-    assertEquals(0,moreNeighbors.size());
-    inPath[4]=inPath[5]=inPath[8]=true;
-    moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,number);
-    assertTrue(moreNeighbors.contains(1)&&moreNeighbors.contains(3)&&moreNeighbors.contains(9));
+    List<ComputeAdditionalPaths.FromTo> moreNeighbors = computeAdditionalPaths.moreNeighbors(number);
     assertEquals(3,moreNeighbors.size());
 
-    allTrue(inPath);
-    moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,number);
-    assertTrue(moreNeighbors.contains(1)&&moreNeighbors.contains(3)&&moreNeighbors.contains(9));
-    assertEquals(3,moreNeighbors.size());
+    assertTrue(moreNeighbors.contains(computeAdditionalPaths.toFromTo(5,3)));
+    assertTrue(moreNeighbors.contains(computeAdditionalPaths.toFromTo(4,1)));
+    assertTrue(moreNeighbors.contains(computeAdditionalPaths.toFromTo(8,9)));
   }
   @Test
   public void testEightNeighbors(){
@@ -236,18 +192,10 @@ public class ScreenLockinPatternTest {
     Assert.assertTrue(neighborsOfOne.contains(9));
     assertEquals(7,neighborsOfOne.size());
 
-    boolean [] inPath = new boolean[10];
-    List<Integer> moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,number);
-    assertEquals(0,moreNeighbors.size());
-    inPath[5]=true;
-    moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,number);
-    assertTrue(moreNeighbors.contains(2));
+    List<ComputeAdditionalPaths.FromTo> moreNeighbors = computeAdditionalPaths.moreNeighbors(number);
     assertEquals(1,moreNeighbors.size());
 
-    allTrue(inPath);
-    moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,number);
-    assertTrue(moreNeighbors.contains(2));
-    assertEquals(1,moreNeighbors.size());
+    assertTrue(moreNeighbors.contains(computeAdditionalPaths.toFromTo(5,2)));
   }
   @Test
   public void testNineNeighbors(){
@@ -261,24 +209,18 @@ public class ScreenLockinPatternTest {
     Assert.assertTrue(neighborsOfOne.contains(8));
     assertEquals(5,neighborsOfOne.size());
 
-    boolean [] inPath = new boolean[10];
-    List<Integer> moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,number);
-    assertEquals(0,moreNeighbors.size());
-    inPath[5]=inPath[6]=inPath[8]=true;
-    moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,number);
-    assertTrue(moreNeighbors.contains(1)&&moreNeighbors.contains(3)&&moreNeighbors.contains(7));
+    List<ComputeAdditionalPaths.FromTo> moreNeighbors = computeAdditionalPaths.moreNeighbors(number);
     assertEquals(3,moreNeighbors.size());
 
-    allTrue(inPath);
-    moreNeighbors = computeAdditionalPaths.additionalPaths(inPath,number);
-    assertTrue(moreNeighbors.contains(1)&&moreNeighbors.contains(3)&&moreNeighbors.contains(7));
-    assertEquals(3,moreNeighbors.size());
+    assertTrue(moreNeighbors.contains(computeAdditionalPaths.toFromTo(5,1)));
+    assertTrue(moreNeighbors.contains(computeAdditionalPaths.toFromTo(6,3)));
+    assertTrue(moreNeighbors.contains(computeAdditionalPaths.toFromTo(8,7)));
   }
 
   @Test
   public void testCalculatePaths(){
     List<Integer> [] matrix = new List[10];
-    List<Integer> [] matrixWithFriendshipExtension = new List[10];
+    List<ComputeAdditionalPaths.FromTo> [] matrixWithFriendshipExtension = new List[10];
     ComputeAdditionalPaths computeAdditionalPaths = new ComputeAdditionalPaths();
     ScreenLockingPattern screenLockingPattern = new ScreenLockingPattern();
     assertEquals(0,screenLockingPattern.calculatePaths(3,0).size());
@@ -289,7 +231,7 @@ public class ScreenLockinPatternTest {
     boolean [] inPath = new boolean[10];
     allTrue(inPath);
     for (int i = 1; i < matrix.length; i++) {
-      matrixWithFriendshipExtension[i]  = computeAdditionalPaths.additionalPaths(inPath,i);
+      matrixWithFriendshipExtension[i]  = computeAdditionalPaths.moreNeighbors(i);
       matrix[i] = computeAdditionalPaths.normalNeighbors(i);
     }
 
@@ -311,11 +253,20 @@ public class ScreenLockinPatternTest {
         for (int j = 0; j < len-1; j++) {
           current = Integer.parseInt(elems[j].trim());
           next = Integer.parseInt(elems[j+1].trim());
-          assertTrue(matrix[current].contains(next)||matrixWithFriendshipExtension[current].contains(next));
-          assertTrue(matrix[next].contains(current)||matrixWithFriendshipExtension[next].contains(current));
+          assertTrue(matrix[current].contains(next)||canHaveThisNeighbor(matrixWithFriendshipExtension[current],next));
+          assertTrue(matrix[next].contains(current)||canHaveThisNeighbor(matrixWithFriendshipExtension[next],current));
         }
       }
     }
+  }
+  private boolean canHaveThisNeighbor(List<ComputeAdditionalPaths.FromTo> more, int y){
+    for (ComputeAdditionalPaths.FromTo fromTo: more
+         ) {
+      if(fromTo.y()==y){
+        return true;
+      }
+    }
+    return false;
   }
   @Test
   public void ScreenLockinPatternTestFirst3Length2Test()  throws InterruptedException, ExecutionException, TimeoutException {
