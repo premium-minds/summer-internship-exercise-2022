@@ -30,7 +30,7 @@ public class ScreenLockinPatternTest {
   };
 
   @Test
-  public void testOneNormalNeighbors() {
+  public void testOneNeighbors() {
     ComputeAdditionalPaths computeAdditionalPaths = new ComputeAdditionalPaths();
     List<Integer> neighborsOfOne = computeAdditionalPaths.normalNeighbors(1);
     Assert.assertTrue(neighborsOfOne.contains(2));
@@ -55,7 +55,7 @@ public class ScreenLockinPatternTest {
   }
 
   @Test
-  public void testTwoNormalNeighbors() throws Exception {
+  public void testTwoNeighbors() throws Exception {
     ComputeAdditionalPaths computeAdditionalPaths = new ComputeAdditionalPaths();
     List<Integer> neighborsOfOne = computeAdditionalPaths.normalNeighbors(2);
     Assert.assertTrue(neighborsOfOne.contains(1));
@@ -83,7 +83,7 @@ public class ScreenLockinPatternTest {
   }
 
   @Test
-  public void testThreeNormalNeighbors() {
+  public void testThreeNeighbors() {
     ComputeAdditionalPaths computeAdditionalPaths = new ComputeAdditionalPaths();
     List<Integer> neighborsOfOne = computeAdditionalPaths.normalNeighbors(3);
     Assert.assertTrue(neighborsOfOne.contains(2));
@@ -108,13 +108,19 @@ public class ScreenLockinPatternTest {
   }
 
   private void allTrue(boolean [] inPath){
-    for (int i = 0; i < inPath.length; i++) {
-      inPath[i]=true;
+    Arrays.fill(inPath,true);
+  }
+  @Test
+  public void testAllTrueMethod(){
+    boolean [] inPath = new boolean[10];
+    allTrue(inPath);
+    assertEquals(10,inPath.length);
+    for (boolean element:inPath) {
+      assertTrue(element);
     }
   }
-
   @Test
-  public void testFourNormalNeighbors() {
+  public void testFourNeighbors() {
     ComputeAdditionalPaths computeAdditionalPaths = new ComputeAdditionalPaths();
     List<Integer> neighborsOfOne = computeAdditionalPaths.normalNeighbors(4);
     Assert.assertTrue(neighborsOfOne.contains(1));
@@ -143,7 +149,7 @@ public class ScreenLockinPatternTest {
   }
 
   @Test
-  public void testFiveNormalNeighbors(){
+  public void testFiveNeighbors(){
     ComputeAdditionalPaths computeAdditionalPaths = new ComputeAdditionalPaths();
     List<Integer> neighborsOfOne = computeAdditionalPaths.normalNeighbors(5);
     Assert.assertTrue(neighborsOfOne.contains(1));
@@ -165,7 +171,7 @@ public class ScreenLockinPatternTest {
     assertEquals(0,moreNeighbors.size());
   }
   @Test
-  public void testSixNormalNeighbors(){
+  public void testSixNeighbors(){
     int number = 6;
     ComputeAdditionalPaths computeAdditionalPaths = new ComputeAdditionalPaths();
     List<Integer> neighborsOfOne = computeAdditionalPaths.normalNeighbors(number);
@@ -192,7 +198,7 @@ public class ScreenLockinPatternTest {
     assertEquals(1,moreNeighbors.size());
   }
   @Test
-  public void testSevenNormalNeighbors(){
+  public void testSevenNeighbors(){
     int number = 7;
     ComputeAdditionalPaths computeAdditionalPaths = new ComputeAdditionalPaths();
     List<Integer> neighborsOfOne = computeAdditionalPaths.normalNeighbors(number);
@@ -217,7 +223,7 @@ public class ScreenLockinPatternTest {
     assertEquals(3,moreNeighbors.size());
   }
   @Test
-  public void testEightNormalNeighbors(){
+  public void testEightNeighbors(){
     int number = 8;
     ComputeAdditionalPaths computeAdditionalPaths = new ComputeAdditionalPaths();
     List<Integer> neighborsOfOne = computeAdditionalPaths.normalNeighbors(number);
@@ -244,7 +250,7 @@ public class ScreenLockinPatternTest {
     assertEquals(1,moreNeighbors.size());
   }
   @Test
-  public void testNineNormalNeighbors(){
+  public void testNineNeighbors(){
     int number = 9;
     ComputeAdditionalPaths computeAdditionalPaths = new ComputeAdditionalPaths();
     List<Integer> neighborsOfOne = computeAdditionalPaths.normalNeighbors(number);
@@ -271,7 +277,6 @@ public class ScreenLockinPatternTest {
 
   @Test
   public void testCalculatePaths(){
-
     List<Integer> [] matrix = new List[10];
     List<Integer> [] matrixWithFriendshipExtension = new List[10];
     ComputeAdditionalPaths computeAdditionalPaths = new ComputeAdditionalPaths();

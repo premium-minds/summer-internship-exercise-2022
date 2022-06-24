@@ -19,7 +19,11 @@ class ScreenLockingPattern implements IScreenLockinPattern {
     public static void main(String[] args) {
         ScreenLockingPattern screenLockingPattern = new ScreenLockingPattern();
         long start = System.nanoTime();
-        Set<String> result = screenLockingPattern.calculatePaths(3, 7);
+        Set<String> result = screenLockingPattern.calculatePaths(1, 7);
+        for (String r:result
+             ) {
+            System.out.println(r);
+        }
         System.out.println("TOOK " + (System.nanoTime() - start));
         System.out.println("GENERATED " + result.size());
     }
@@ -44,6 +48,13 @@ class ScreenLockingPattern implements IScreenLockinPattern {
     }
 
     //[1, 2, 9, 5, 4, 7, 3]
+    /**
+     * A variant of depth first search is implemented to find all
+     * possible paths from startIndex to all nodes until with size length
+     * @param startIndex
+     * @param length
+     * @return
+     */
     public Set<String> calculatePaths(int startIndex, int length) {
         if (startIndex > 9 || startIndex < 1 || length > 9 || length < 1) {
             return new HashSet<>();
