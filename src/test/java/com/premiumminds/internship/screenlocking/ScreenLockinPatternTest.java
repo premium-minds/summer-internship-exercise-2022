@@ -295,14 +295,17 @@ public class ScreenLockinPatternTest {
       int index = random.nextInt(1,10);
       int len = random.nextInt(1,10);
       Set<String> result = screenLockingPattern.calculatePaths(index,len);
+
       assertTrue(result.size()>0);
+
       for (String seq:result) {
         String [] elems = seq.replace("[","").replace("]","").split(",");
         Assert.assertEquals(index,Integer.parseInt(elems[0]));
         Assert.assertEquals(len,elems.length);
+        int current, next;
         for (int j = 0; j < len-1; j++) {
-          int current = Integer.parseInt(elems[j].trim());
-          int next = Integer.parseInt(elems[j+1].trim());
+          current = Integer.parseInt(elems[j].trim());
+          next = Integer.parseInt(elems[j+1].trim());
           assertTrue(matrix[current].contains(next)||matrixWithFriendshipExtension[current].contains(next));
           assertTrue(matrix[next].contains(current)||matrixWithFriendshipExtension[next].contains(current));
         }
