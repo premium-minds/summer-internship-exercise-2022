@@ -24,32 +24,8 @@ public class ComputeAdditionalPaths {
         matrix[8]=addNeighbors(7,4,1,5,3,6,9);
         matrix[9]= addNeighbors(8,4,5,2,6);
     }
-    private void initMatrixExtendedNeighbors(){
 
-    }
     public List<Integer> normalNeighbors(int number){
-        /**
-        if(number==1){
-            return addNeighbors(2,4,5,6,8); //1
-        }else if(number==2){
-            return addNeighbors(1,3,4,5,6,7,9);  //2
-        }else if(number==3){
-            return addNeighbors(2,5,6,4,8); //3
-        }else if(number==4){
-            return addNeighbors(1,2,3,5,9,7,8); //4
-        }else if(number==5){
-            return addNeighbors(1,2,3,4,6,7,8,9); //5
-        }else if(number==6){
-            return addNeighbors(1,2,3,5,7,8,9); //6
-        }else if(number==7){
-            return addNeighbors(4,2,5,6,8); //7
-        }else if(number==8){
-            return addNeighbors(7,4,1,5,3,6,9); //8
-        }else if (number==9){
-            return addNeighbors(8,4,5,2,6); //9
-        }else {
-            throw new Exception("UNKNOWN NUMBER");
-        }**/
         return matrix[number];
     }
     private List<Integer> addNeighbors(int ...args){
